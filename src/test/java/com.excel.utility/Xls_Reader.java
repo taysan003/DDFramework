@@ -197,9 +197,7 @@ public class Xls_Reader {
             if(index==-1)
                 return false;
 
-
             sheet = workbook.getSheetAt(index);
-
 
             row=sheet.getRow(0);
             for(int i=0;i<row.getLastCellNum();i++){

@@ -18,6 +18,7 @@ public class ParameterizeTest {
         Xls_Reader reader = new Xls_Reader("G:\\SeleniumProjects\\DDFramework\\src\\test\\java\\com.testdata\\HalfEbayTestData.xls");
         int rowCount = reader.getRowCount("RegTestData"); //getting number of rows
 
+        reader.addColumn("RegTestData", "Status");
         //parameterization
         for (int rowNum = 2; rowNum <=rowCount ; rowNum++) {
 
@@ -65,6 +66,8 @@ public class ParameterizeTest {
             driver.findElement(By.id("email")).sendKeys(emailAdress);
             driver.findElement(By.id("retype_email")).clear();
             driver.findElement(By.id("retype_email")).sendKeys(emailAdress);
+
+            reader.setCellData("RegTestData", "Status", rowNum, "Pass");//write the data into cell
         }
 
 
