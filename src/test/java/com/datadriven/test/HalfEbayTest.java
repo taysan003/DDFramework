@@ -1,6 +1,7 @@
 package com.datadriven.test;
 
-import com.excel.utility.Xls_Reader;
+
+import com.test.utility.TestUtil;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -11,6 +12,8 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.concurrent.TimeUnit;
 
 public class HalfEbayTest {
@@ -28,11 +31,12 @@ public class HalfEbayTest {
     }
 
     @DataProvider
-    public void getTestData(){
-
+    public Iterator<Object[]> getTestData(){ // we need to iterate each and every element
+        ArrayList<Object[]> testData = TestUtil.getDataFromExcel();
+        return testData.iterator();
     }
 
-    @Test
+    @Test(dataProvider = "getTestData")
     public void halfEbayRegPageTest(String firstName, String lastName, String address1, String address2,
                                     String city, String zipCode, String state, String emailAdress){
             //entering data
@@ -48,7 +52,7 @@ public class HalfEbayTest {
             driver.findElement(By.id("city")).sendKeys(city);
             driver.findElement(By.id("zip")).clear();
             driver.findElement(By.id("zip")).sendKeys(zipCode);
-            Select select = new Select(driver.findElement(By.xpath("//select[@id='state']")));
+            Select select = new Select(driver.findElement(By.id("state")));
             select.selectByVisibleText(state);
             driver.findElement(By.id("email")).clear();
             driver.findElement(By.id("email")).sendKeys(emailAdress);
